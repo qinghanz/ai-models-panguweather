@@ -76,14 +76,14 @@ class PanguWeather(Model):
                 sess_options=options,
                 providers=self.providers,
             )
-
+        '''
         with self.timer(f"Loading {pangu_weather_6}"):
             ort_session_6 = ort.InferenceSession(
                 pangu_weather_6,
                 sess_options=options,
                 providers=self.providers,
             )
-
+        '''
         self.write_input_fields(fields_pl + fields_sfc)
 
         input_24, input_surface_24 = input, input_surface
@@ -101,6 +101,7 @@ class PanguWeather(Model):
                         },
                     )
                     input_24, input_surface_24 = output, output_surface
+                '''
                 else:
                     output, output_surface = ort_session_6.run(
                         None,
@@ -110,7 +111,7 @@ class PanguWeather(Model):
                         },
                     )
                 input, input_surface = output, output_surface
-
+                '''
                 # Save the results
 
                 pl_data = output.reshape((-1, 721, 1440))
